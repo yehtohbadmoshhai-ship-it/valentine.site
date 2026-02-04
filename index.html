@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Be My Valentine ❤️</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg,#fff,#ffe6f0);
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+  overflow:hidden;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+}
+
+h1{
+  color:#ff6fa5;
+  font-size:48px;
+  text-shadow:2px 2px 0 #ffd1e3;
+}
+
+h2{
+  margin-top:10px;
+}
+
+img{
+  width:180px;
+  margin:15px 0;
+}
+
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  margin:10px;
+  transition:0.25s;
+}
+
+#yes{
+  background:#2ecc71;
+  color:white;
+}
+
+#no{
+  background:#e74c3c;
+  color:white;
+}
+
+/* floating hearts */
+.heart{
+  position:absolute;
+  color:#ff6fa5;
+  font-size:20px;
+  animation: float 5s linear infinite;
+  opacity:0.7;
+}
+
+@keyframes float{
+  0%{ transform:translateY(100vh); opacity:0; }
+  50%{ opacity:1; }
+  100%{ transform:translateY(-10vh); opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>For my Pookie 🥺???</h1>
+
+  <img src="https://media.tenor.com/7w6H7X0J3nEAAAAi/cute-bear-heart.gif">
+
+  <h2 id="question">Will you be my Valentine?</h2>
+
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
+
+
+<!-- confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const question = document.getElementById("question");
+
+let scale = 1;
+
+const name = "MY SMOLL BABY"; // change this
+
+const messages = [
+  "No",
+  "Really sure?",
+  "Are you sure??",
+  "Think again 😭",
+  "Last chance",
+  "Please?? 🥺",
+  "Don't break my heart 💔",
+  "Okay fine click YES 😤"
+];
+
+let index = 0;
+
+
+// NO button logic
+noBtn.onclick = () => {
+  index++;
+
+  if(index < messages.length){
+    noBtn.innerText = messages[index];
+  }
+
+  scale += 0.35;
+  yesBtn.style.transform = `scale(${scale})`;
+};
+
+
+// YES click
+yesBtn.onclick = () => {
+
+  // confetti
+  confetti({
+    particleCount: 200,
+    spread: 120
+  });
+
+  document.body.innerHTML = `
+    <h1 style="color:#ff6fa5;font-size:60px;margin-top:40vh;">
+      YAYYY ❤️ ${name} said YES!!
+    </h1>
+  `;
+};
+
+
+// floating hearts generator
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random()*25) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),5000);
+
+}, 300);
+</script>
+
+</body>
+</html>
